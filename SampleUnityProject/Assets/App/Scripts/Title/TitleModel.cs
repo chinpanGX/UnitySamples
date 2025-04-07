@@ -26,6 +26,11 @@ namespace App.Title
         {
             Application.OpenURL(Url);
         }
+        
+        public string TweetTemplateText()
+        {
+            return "Test Post Message";
+        }
     }
 
 }
