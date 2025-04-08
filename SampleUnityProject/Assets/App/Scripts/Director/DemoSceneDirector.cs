@@ -1,15 +1,23 @@
+using System;
 using App.AudioDemo;
 using App.Common;
+using App.SampleInGame;
+using App.SampleInGame.Domain;
+using App.SampleInGame.View;
 using App.Title;
 using AppCore.Runtime;
 using AudioService.Simple;
 using Cysharp.Threading.Tasks;
+using InputSystemWrapper;
+using MessagePipe;
 using UnityEngine;
 
 namespace App.Director
 {
     public class DemoSceneDirector : MonoBehaviour, IDirector
     {
+        [SerializeField] private Camera uiCamera;
+        
         private TickablePresenter tickablePresenter;
 
         void Start()
@@ -37,7 +45,7 @@ namespace App.Director
             await fadeView.FadeOutAsync();
             fadeView.Pop();
         }
-
+        
         /// <summary>
         /// 初期化を行う
         /// </summary>
@@ -48,6 +56,9 @@ namespace App.Director
             fadeView.Push();
             fadeView.Open();
             fadeView.Blackout();
+
+            // MessagePipeのビルド
+            BuildMessagePipe();
 
             // オーディオファイルの読み込みを行う
             var audioService = ServiceLocator.Get<SimpleAudioService>();
@@ -62,6 +73,18 @@ namespace App.Director
             await fadeView.FadeOutAsync();
             fadeView.Pop();
         }
+        
+        /// <summary>
+        /// MessagePipeのビルドを行う
+        /// </summary>
+        private void BuildMessagePipe()
+        {
+            var builder = new BuiltinContainerBuilder();
+            builder.AddMessagePipe();
+            builder.AddMessageBroker<BallCollisionMessage>();
+            var provider = builder.BuildServiceProvider();
+            GlobalMessagePipe.SetProvider(provider);
+        }
 
         /// <summary>
         /// Presenterの切り替えを行う
@@ -74,9 +97,27 @@ namespace App.Director
             {
                 "Title" => new TitlePresenter(this, new TitleModel(), await TitleView.CreateAsync()),
                 "AudioDemo" => new AudioDemoPresenter(this, await AudioDemoTopView.CreateAsync()),
-                _ => throw new System.ArgumentException($"Unknown Presenter Key : {key}"),
+                "SampleGame" => await ResolveSampleInGame(),
+                _ => throw new ArgumentException($"Unknown Presenter Key : {key}"),
             };
             tickablePresenter.SetRequest(request);
+            
+        }
+        
+        /// <summary>
+        /// SampleInGamePresenterの依存関係の解決をする。
+        /// オブジェクト数が多くなりそうなので、関数化
+        /// </summary>
+        /// <returns></returns>
+        private async UniTask<IPresenter> ResolveSampleInGame()
+        {
+            var view = await SampleInGameView.CreateAsync(
+                GlobalMessagePipe.GetPublisher<BallCollisionMessage>(),
+                uiCamera
+            );
+            var model = new SampleInGameModel(GlobalMessagePipe.GetSubscriber<BallCollisionMessage>());
+            var pointerHandler = ServiceLocator.Get<PointerHandler>();
+            return new SampleInGamePresenter(this, model, view, pointerHandler);
         }
     }
 }

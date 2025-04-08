@@ -50,9 +50,16 @@ namespace App.Title
                     .SubscribeAwait(
                         async (_, token) =>
                         {
-                            await owner.Director.PushAsync("AudioDemo").ToUniTask(cancellationToken: token);
+                            await owner.Director.PushAsync("SampleGame").ToUniTask(cancellationToken: token);
                         }, AwaitOperation.Drop
                     ).RegisterTo(owner.cts.Token);
+                
+                view.OnClickedAudioDemo.SubscribeAwait(
+                    async (_, token) =>
+                    {
+                        await owner.Director.PushAsync("AudioDemo").ToUniTask(cancellationToken: token);
+                    }, AwaitOperation.Drop
+                ).RegisterTo(owner.cts.Token);
 
                 view.OnClickedHelp.Subscribe((_) => OnClickHelp()).RegisterTo(owner.cts.Token);
                 
