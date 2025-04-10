@@ -25,4 +25,4 @@ __以下、ゲームの説明__
 
 デモムービー
 
-https://github.com/user-attachments/assets/5e7bd17b-c70e-498a-b073-603e5eeb192e
+https://github.com/user-attachments/assets/53b2dd61-b31d-443c-9411-d2985e70b44b
