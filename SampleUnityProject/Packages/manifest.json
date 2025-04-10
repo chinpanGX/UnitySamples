@@ -3,6 +3,7 @@
     "com.chinpangx.appcore": "https://github.com/chinpanGX/AppCore.git",
     "com.chinpangx.appservice": "https://github.com/chinpanGX/AppService.git?path=AppServiceUnityProject/Assets/src/AppService",
     "com.chinpangx.audioservice": "https://github.com/chinpanGX/AudioService.git?path=AudioServiceUnityProject/Assets/src/AudioService",
+    "com.cysharp.messagepipe": "1.8.1",
     "com.cysharp.r3": "1.3.0",
     "com.cysharp.unitask": "2.5.10",
     "com.unity.addressables": "2.3.16",

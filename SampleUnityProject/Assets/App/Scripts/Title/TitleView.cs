@@ -15,6 +15,7 @@ namespace App.Title
         [SerializeField] private CustomButton startButton;
         [SerializeField] private CustomButton helpButton;
         [SerializeField] private CustomButton tweetButton;
+        [SerializeField] private CustomButton audioDemoButton;
 
         public Canvas Canvas => canvas;
         private ViewScreen ViewScreen => ServiceLocator.Get<ViewScreen>();
@@ -23,9 +24,11 @@ namespace App.Title
         private readonly Subject<Unit> onClickedStart = new();
         private readonly Subject<Unit> onClickedHelp = new();
         private readonly Subject<Unit> onClickedTweet = new();
+        private readonly Subject<Unit> onClickedAudioDemo = new();
         public Observable<Unit> OnClickedStart => onClickedStart;
         public Observable<Unit> OnClickedHelp => onClickedHelp;
         public Observable<Unit> OnClickedTweet => onClickedTweet;
+        public Observable<Unit> OnClickedAudioDemo => onClickedAudioDemo;
 
         public static async UniTask<TitleView> CreateAsync()
         {
@@ -49,6 +52,11 @@ namespace App.Title
             tweetButton.SubscribeToClickAndPlaySe(() => { onClickedTweet.OnNext(Unit.Default); },
                 new AudioOptions(AudioService, "SE_Ok"), canvasGroup
             );
+            
+            audioDemoButton.SubscribeToClickAndPlaySe(() => { onClickedAudioDemo.OnNext(Unit.Default); },
+                new AudioOptions(AudioService, "SE_Ok"), canvasGroup
+            );
+            
         }
 
         public void Push()
