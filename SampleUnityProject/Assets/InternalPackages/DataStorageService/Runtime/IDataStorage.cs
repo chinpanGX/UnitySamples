@@ -22,5 +22,10 @@
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         T Load<T>();
+        
+        /// <summary>
+        /// 削除する
+        /// </summary>
+        void Delete();
     }
 }

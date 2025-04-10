@@ -1,67 +1,9 @@
-using System;
 using System.IO;
-using DataStorageService.Runtime;
 using NUnit.Framework;
-using Newtonsoft.Json;
 using UnityEngine;
 
 namespace DataStorageService.Tests
 {
-    [JsonObject]
-    public class TestPlayerData
-    {
-        [JsonProperty] public string PlayerId { get; private set; }
-        
-        [JsonProperty] public string Name { get; private set; }
-        
-        public static TestPlayerData CreateNew()
-        {
-            var id = Guid.NewGuid().ToString();
-            var name = "Player";
-            return new TestPlayerData(id, name);
-        }
-        
-        public TestPlayerData(string playerId, string name)
-        {
-            PlayerId = playerId;
-            Name = name;
-        }
-    }
-
-    public class TestPlayerRepository
-    {
-        private readonly string fileName = "TestPlayerData";
-        private readonly IDataStorage dataStorage;
-        private readonly string dataPath;
-        
-        public TestPlayerRepository()
-        {
-            dataPath = $"{Application.persistentDataPath}/{fileName}";
-            dataStorage = new JsonDataStorage(dataPath);
-            
-            if (!dataStorage.Exists())
-            {
-                Create();
-            }
-        }
-        
-        private void Create()
-        {
-            var playerData = TestPlayerData.CreateNew();
-            dataStorage.Save(playerData);
-        }
-        
-        public void Save(TestPlayerData playerData)
-        {
-            dataStorage.Save(playerData);
-        }
-        
-        public TestPlayerData Load()
-        {
-            return dataStorage.Load<TestPlayerData>();
-        }
-    }
-    
     public class TestsDataStorageService
     {
         [Test]
@@ -76,5 +18,68 @@ namespace DataStorageService.Tests
             Assert.IsNotEmpty(playerData.Name);
             Debug.Log($"PlayerName: {playerData.Name}");
         }
+        
+        [Test]
+        public void UpdateSaveData()
+        {
+            var repository = new TestPlayerRepository();
+            var playerData = repository.Load();
+            var newName = "NewPlayerName";
+            var updatedPlayerData = playerData.UpdateName(newName);
+            repository.Save(updatedPlayerData);
+            
+            var loadedPlayerData = repository.Load();
+            Assert.AreEqual(newName, loadedPlayerData.Name);
+            Debug.Log($"Updated PlayerName: {loadedPlayerData.Name}");
+        }
+        
+        [Test]
+        public void DeleteSaveData()
+        {
+            var repository = new TestPlayerRepository();
+            var playerData = repository.Load();
+            File.Delete($"{Application.persistentDataPath}/TestPlayerData.json");
+            
+            Assert.IsFalse(File.Exists($"{Application.persistentDataPath}/TestPlayerData.json"));
+            Debug.Log("Save data deleted successfully.");
+        }
+        
+        [Test]
+        public void PlayerNameExceedsMaxLengthThrowsExceptionOnCreation()
+        {
+            Assert.Throws<TestPlayerException>(() => new TestPlayerData("123", new string('A', 21)));
+        }
+        
+        [Test]
+        public void PlayerNameContainsSpacesThrowsExceptionOnCreation()
+        {
+            Assert.Throws<TestPlayerException>(() => new TestPlayerData("123", "Player Name"));
+        }
+    
+        [Test]
+        public void SavePlayerNameContainsNgWordsThrowsException()
+        {
+            var repository = new TestPlayerRepository();
+            var playerData = new TestPlayerData("123", "ちんちん");
+            Assert.Throws<TestPlayerException>(() => repository.Save(playerData));
+
+            playerData = new TestPlayerData("123", "うんち");
+            Assert.Throws<TestPlayerException>(() => repository.Save(playerData));
+            
+            playerData = new TestPlayerData("123", "ちんちんぱんぱん");
+            Assert.Throws<TestPlayerException>(() => repository.Save(playerData));
+            
+            playerData = new TestPlayerData("123", "ちんぱん");
+            Assert.DoesNotThrow(() => repository.Save(playerData));
+        }
+        
+        
+        [TearDown]
+        public void TearDown()
+        {
+            var repository = new TestPlayerRepository();
+            repository.Delete();
+        }
+        
     }
 }
