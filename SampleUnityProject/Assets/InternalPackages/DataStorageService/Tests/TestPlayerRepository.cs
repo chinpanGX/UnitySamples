@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DataStorageService.Runtime;
+using DataStorageService.Runtime.Core;
+using DataStorageService.Runtime.Json;
 
 namespace DataStorageService.Tests
 {

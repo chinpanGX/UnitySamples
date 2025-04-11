@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "5b96de13f632a25bb30b7f5c4346946b2fb6a178"
+      "hash": "0fd6c65ac444b1fee5914baab82d25d0a3db3dc0"
     },
     "com.chinpangx.appservice": {
       "version": "https://github.com/chinpanGX/AppService.git?path=AppServiceUnityProject/Assets/src/AppService",
@@ -30,7 +30,7 @@
         "com.chinpangx.appcore": "1.0.0",
         "com.chinpangx.appservice": "1.0.0"
       },
-      "hash": "6d0baeb0b5229227aba42b4bb554ed77496c2d2c"
+      "hash": "6f6a5681a484123ce40c493e7c679cfc9bb0f53b"
     },
     "com.cysharp.messagepipe": {
       "version": "1.8.1",

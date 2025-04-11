@@ -1,14 +1,12 @@
 {
-    "name": "DataStorageService.Runtime",
-    "rootNamespace": "DataStorageService.Runtime",
+    "name": "DataStorageService.Runtime.Core",
+    "rootNamespace": "DataStorageService.Runtime.Core",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": true,
-    "precompiledReferences": [
-        "Newtonsoft.Json.dll"
-    ],
+    "overrideReferences": false,
+    "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

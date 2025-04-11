@@ -1,11 +1,10 @@
-﻿namespace DataStorageService.Runtime
+﻿namespace DataStorageService.Runtime.Core
 {
     public interface IDataStorage
     {
         /// <summary>
         /// セーブデータが存在するか
         /// </summary>
-        /// <param name="path"></param>
         /// <returns></returns>
         bool Exists();
         

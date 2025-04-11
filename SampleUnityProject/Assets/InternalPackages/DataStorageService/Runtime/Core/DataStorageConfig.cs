@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DataStorageService.Runtime
+namespace DataStorageService.Runtime.Core
 {
     public static class DataStorageConfig
     {

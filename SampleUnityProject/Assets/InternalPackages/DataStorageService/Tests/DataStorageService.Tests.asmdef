@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "DataStorageService.Runtime"
+        "DataStorageService.Runtime.Core",
+        "DataStorageService.Runtime.Json"
     ],
     "includePlatforms": [
         "Editor"

@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using System.Text;
 using Newtonsoft.Json;
+using DataStorageService.Runtime.Core;
 
-namespace DataStorageService.Runtime
+namespace DataStorageService.Runtime.Json
 {
     public class JsonDataStorage : IDataStorage
     {
