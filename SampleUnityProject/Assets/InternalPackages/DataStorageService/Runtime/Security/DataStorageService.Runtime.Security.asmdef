@@ -1,0 +1,19 @@
+{
+    "name": "DataStorageService.Runtime.Security",
+    "rootNamespace": "DataStorageService.Runtime.Security",
+    "references": [
+        "DataStorageService.Runtime.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "DSecurity.Cryptography.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
