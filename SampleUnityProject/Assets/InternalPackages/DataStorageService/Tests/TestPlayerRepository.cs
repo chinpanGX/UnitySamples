@@ -2,17 +2,34 @@
 using System.Linq;
 using DataStorageService.Runtime.Core;
 using DataStorageService.Runtime.Json;
+using DataStorageService.Runtime.Security;
 
 namespace DataStorageService.Tests
 {
-    internal class TestPlayerRepository
+    internal interface IPlayerRepository
+    {
+        void Save(TestPlayerData playerData);
+        TestPlayerData Load();
+        void Delete();
+        bool Exists();
+    }
+    
+    internal class TestPlayerRepository : IPlayerRepository
     {
         private readonly string fileName = "TestPlayerData";
         private readonly IDataStorage dataStorage;
 
-        public TestPlayerRepository()
+        public TestPlayerRepository(bool development)
         {
-            dataStorage = new JsonDataStorage(fileName);
+            if (development)
+            {
+                dataStorage = new JsonDataStorage(fileName);    
+            }
+            else
+            {
+                dataStorage = new SecurityDataStorageService(fileName, "password1234");
+            }
+            
 
             if (!dataStorage.Exists())
             {
@@ -61,5 +78,7 @@ namespace DataStorageService.Tests
                 dataStorage.Delete();
             }
         }
+        
+        public bool Exists() => dataStorage.Exists();
     }
 }

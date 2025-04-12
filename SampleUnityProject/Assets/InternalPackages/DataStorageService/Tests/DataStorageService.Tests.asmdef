@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "DataStorageService.Runtime.Core",
-        "DataStorageService.Runtime.Json"
+        "DataStorageService.Runtime.Json",
+        "DataStorageService.Runtime.Security"
     ],
     "includePlatforms": [
         "Editor"

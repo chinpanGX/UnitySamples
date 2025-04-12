@@ -6,23 +6,32 @@ namespace DataStorageService.Tests
 {
     public class TestsDataStorageService
     {
-        [Test]
-        public void CreateSaveData()
+        public void CreatePlayerData()
         {
-            var repository = new TestPlayerRepository();
-            var playerData = repository.Load();
-            
+            var playerData = TestPlayerData.CreateNew();
             Assert.IsNotNull(playerData);
-            Assert.IsNotEmpty(playerData.PlayerId);
-            Debug.Log($"PlayerId: {playerData.PlayerId}");
-            Assert.IsNotEmpty(playerData.Name);
-            Debug.Log($"PlayerName: {playerData.Name}");
+            Assert.IsNotNull(playerData.PlayerId);
+            Assert.IsNotNull(playerData.Name);
+            Debug.Log($"Player data created successfully: {playerData.Name}");
         }
         
-        [Test]
-        public void UpdateSaveData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateSaveData(bool development)
         {
-            var repository = new TestPlayerRepository();
+            var repository = new TestPlayerRepository(development);
+            var playerData = TestPlayerData.CreateNew();
+            repository.Save(playerData);
+
+            Assert.AreEqual(repository.Load().PlayerId, playerData.PlayerId);
+            
+        }
+        
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UpdateSaveData(bool development)
+        {
+            var repository = new TestPlayerRepository(development);
             var playerData = repository.Load();
             var newName = "NewPlayerName";
             var updatedPlayerData = playerData.UpdateName(newName);
@@ -33,14 +42,13 @@ namespace DataStorageService.Tests
             Debug.Log($"Updated PlayerName: {loadedPlayerData.Name}");
         }
         
-        [Test]
-        public void DeleteSaveData()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void DeleteSaveData(bool development)
         {
-            var repository = new TestPlayerRepository();
-            var playerData = repository.Load();
-            File.Delete($"{Application.persistentDataPath}/TestPlayerData.json");
-            
-            Assert.IsFalse(File.Exists($"{Application.persistentDataPath}/TestPlayerData.json"));
+            var repository = new TestPlayerRepository(development);
+            repository.Delete();
+            Assert.IsFalse(repository.Exists());
             Debug.Log("Save data deleted successfully.");
         }
         
@@ -56,10 +64,11 @@ namespace DataStorageService.Tests
             Assert.Throws<TestPlayerException>(() => new TestPlayerData("123", "Player Name"));
         }
     
-        [Test]
-        public void SavePlayerNameContainsNgWordsThrowsException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SavePlayerNameContainsNgWordsThrowsException(bool development)
         {
-            var repository = new TestPlayerRepository();
+            var repository = new TestPlayerRepository(development);
             var playerData = new TestPlayerData("123", "ちんちん");
             Assert.Throws<TestPlayerException>(() => repository.Save(playerData));
 
@@ -73,13 +82,14 @@ namespace DataStorageService.Tests
             Assert.DoesNotThrow(() => repository.Save(playerData));
         }
         
-        
         [TearDown]
         public void TearDown()
         {
-            var repository = new TestPlayerRepository();
+            var repository = new TestPlayerRepository(true);
+            repository.Delete();
+            
+            repository = new TestPlayerRepository(false);
             repository.Delete();
         }
-        
     }
 }
