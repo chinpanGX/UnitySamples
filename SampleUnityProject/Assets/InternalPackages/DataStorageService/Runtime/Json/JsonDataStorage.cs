@@ -16,18 +16,12 @@ namespace DataStorageService.Runtime.Json
         
         public bool Exists()
         {
-            return File.Exists(dataFullPath);
+            return FileHelper.Exists(dataFullPath);
         }
         
         public void Save<T>(T data)
         {
-            var directory = Path.GetDirectoryName(dataFullPath);
-            if (directory == null)
-                throw new DirectoryNotFoundException($"Directory not found. {dataFullPath}");
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
+            FileHelper.CreateDirectoryIfNeed(dataFullPath);
             
             var jsonData = JsonConvert.SerializeObject(data);
             File.WriteAllText(dataFullPath, jsonData, Encoding.UTF8);
@@ -35,7 +29,7 @@ namespace DataStorageService.Runtime.Json
         
         public T Load<T>()
         {
-            if (!File.Exists(dataFullPath))
+            if (!FileHelper.Exists(dataFullPath))
                 throw new FileNotFoundException("File not found.", dataFullPath);
             
             var jsonData = File.ReadAllText(dataFullPath, Encoding.UTF8);
@@ -48,14 +42,7 @@ namespace DataStorageService.Runtime.Json
         
         public void Delete()
         {
-            if  (File.Exists(dataFullPath))  
-            {
-                File.Delete(dataFullPath);
-            }
-            else
-            {
-                throw new FileNotFoundException("File not found.", dataFullPath);
-            }
+            FileHelper.Delete(dataFullPath);   
         }
     }
 }
