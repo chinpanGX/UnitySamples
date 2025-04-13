@@ -130,7 +130,6 @@ namespace App.Common
         [Obsolete("使用しないでください。")]
         public void Pop()
         {
-            ModalScreen.Pop(this);
         }
         
         [Obsolete("使用しないでください。")]
@@ -142,13 +141,14 @@ namespace App.Common
         [Obsolete("使用しないでください。")]
         public void Close()
         {
-            Destroy(gameObject);
+            
         }
         
         private async UniTask CloseAsync()
         {
             await viewPlayableDirector.PlayOutAsync(destroyCancellationToken);
-            Pop();
+            ModalScreen.Pop(this);
+            Destroy(gameObject);
         }
     }
 }
