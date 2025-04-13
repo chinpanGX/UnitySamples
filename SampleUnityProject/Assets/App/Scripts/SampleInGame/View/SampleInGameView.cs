@@ -4,6 +4,8 @@ using AppCore.Runtime;
 using AppService.Runtime;
 using AudioService.Simple;
 using Cysharp.Threading.Tasks;
+using LitMotion;
+using LitMotion.Extensions;
 using MessagePipe;
 using R3;
 using TMPro;
@@ -26,6 +28,8 @@ namespace App.SampleInGame.View
         private ViewScreen ViewScreen => ServiceLocator.Get<ViewScreen>();
         private IPublisher<BallCollisionMessage> Publisher { get; set; }
         private Camera Camera { get; set; }
+        
+        private int viewScore;
 
         public static async UniTask<SampleInGameView> CreateAsync(IPublisher<BallCollisionMessage> publisher, Camera camera)
         {
@@ -43,6 +47,7 @@ namespace App.SampleInGame.View
             backButton.SubscribeToClickAndPlaySe(() => { onClickedBack.OnNext(Unit.Default); },
                 new AudioOptions(ServiceLocator.Get<SimpleAudioService>(), "SE_Ok")
             );
+            viewScore = 0;
         }
 
         public async UniTask CreateBallAsync(BallData data, Vector3 clickPosition)
@@ -54,7 +59,9 @@ namespace App.SampleInGame.View
 
         public void SetScore(int score)
         {
-            scoreText.text = score.ToString();
+            LMotion.Create(viewScore, score, 0.5f)
+                .BindToText(scoreText);
+            viewScore = score;
         }
 
         public void Push()
