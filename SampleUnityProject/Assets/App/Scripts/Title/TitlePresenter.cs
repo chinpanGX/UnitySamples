@@ -1,10 +1,9 @@
 ﻿using System.Threading;
 using App.AudioDemo;
-using App.Common;
 using AppCore.Runtime;
 using Cysharp.Threading.Tasks;
 using R3;
-using TweetWithScreenShot;
+using UnityEngine.AddressableAssets;
 
 namespace App.Title
 {
@@ -37,12 +36,6 @@ namespace App.Title
             Model.Dispose();
         }
         
-        private async UniTask OpenLicensePopup()
-        {
-            await View.OpenLicensePopup();
-
-        }
-
         private class StateInit : StateMachine<TitlePresenter>.State
         {
             private TitleView view;

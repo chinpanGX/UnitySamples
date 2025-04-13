@@ -78,7 +78,7 @@ namespace App.Common
             yesButton.SetTextSafe(option.YesButtonText);
             var tcs = new UniTaskCompletionSource();
             yesButton.SubscribeToClickAndPlaySe(() => tcs.TrySetResult(), 
-                new AudioOptions(AudioService, "SE_Cansel"),
+                new AudioOptions(AudioService, "SE_Ok"),
                 canvasGroup
             );
             headerText.SetTextSafe(option.Header);
@@ -86,6 +86,7 @@ namespace App.Common
             gameObject.SetActive(true);
             await viewPlayableDirector.PlayInAsync(destroyCancellationToken);
             await tcs.Task;
+            await CloseAsync();
         }
         
         /// <summary>
@@ -107,7 +108,7 @@ namespace App.Common
             yesButton.SetTextSafe(option.YesButtonText);
             var tcs = new UniTaskCompletionSource<bool>();
             noButton.SubscribeToClickAndPlaySe(() => tcs.TrySetResult(false), 
-                new AudioOptions(AudioService, "SE_Cansel"),
+                new AudioOptions(AudioService, "SE_Cancel"),
                 canvasGroup
             );
             yesButton.SubscribeToClickAndPlaySe(() => tcs.TrySetResult(true), 
@@ -118,34 +119,36 @@ namespace App.Common
             contentText.SetTextSafe(option.Content);
             gameObject.SetActive(true);
             await viewPlayableDirector.PlayInAsync(destroyCancellationToken);
-            return await tcs.Task;
+            var result = await tcs.Task;
+            await CloseAsync();
+            return result;
         }
         
+        [Obsolete("使用しないでください。")]
+        public void Push() { }
         
+        [Obsolete("使用しないでください。")]
         public void Pop()
         {
             ModalScreen.Pop(this);
         }
         
-        [Obsolete("ShowOneButton() か ShowYesNo() を、使用してください。")]
+        [Obsolete("使用しないでください。")]
         public void Open()
         {
             
         }
-       
-        [Obsolete("ShowOneButton() か ShowYesNo() を、使用してください。")]
-        public void Push() { }
         
-        [Obsolete("Pop() を、使用してください。")]
+        [Obsolete("使用しないでください。")]
         public void Close()
         {
-            CloseAsync().Forget();
+            Destroy(gameObject);
         }
         
-        private async UniTaskVoid CloseAsync()
+        private async UniTask CloseAsync()
         {
             await viewPlayableDirector.PlayOutAsync(destroyCancellationToken);
-            gameObject.SetActive(false);
+            Pop();
         }
     }
 }

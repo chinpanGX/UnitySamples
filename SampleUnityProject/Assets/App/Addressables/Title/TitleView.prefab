@@ -198,6 +198,7 @@ MonoBehaviour:
   startButton: {fileID: 7649578986575782586}
   helpButton: {fileID: 5750968997102626558}
   audioDemoButton: {fileID: 2431716531790990586}
+  licenseButton: {fileID: 4591458300985314314}
 --- !u!1 &6269779175587241796
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,3 +904,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4937112848958471868, guid: 9252445e33e3f144fa99312e2eb652eb, type: 3}
   m_PrefabInstance: {fileID: 6510562945391018201}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4591458300985314314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7341439682391428307, guid: 9252445e33e3f144fa99312e2eb652eb, type: 3}
+  m_PrefabInstance: {fileID: 6510562945391018201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d653ed3aaa44bf4be6f7ad6851ab64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

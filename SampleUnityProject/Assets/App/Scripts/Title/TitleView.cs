@@ -19,6 +19,7 @@ namespace App.Title
         [SerializeField] private CustomButton startButton;
         [SerializeField] private CustomButton helpButton;
         [SerializeField] private CustomButton audioDemoButton;
+        [SerializeField] private CustomButton licenseButton;
         
         private readonly Subject<Unit> onClickedStart = new();
         private readonly Subject<Unit> onClickedHelp = new();
@@ -56,7 +57,10 @@ namespace App.Title
             audioDemoButton.SubscribeToClickAndPlaySe(() => { onClickedAudioDemo.OnNext(Unit.Default); },
                 new AudioOptions(AudioService, "SE_Ok"), canvasGroup
             );
-            
+
+            licenseButton.SubscribeToClickAndPlaySe(() => { OpenLicensePopup().Forget(); },
+                new AudioOptions(AudioService, "SE_Ok"), canvasGroup
+            );
         }
 
         public void Push()
@@ -79,9 +83,9 @@ namespace App.Title
             Destroy(gameObject);
         }
 
-        public async UniTask OpenLicensePopup()
+        private async UniTaskVoid OpenLicensePopup()
         {
-            var licenseTextHandle = Addressables.LoadResourceLocationsAsync("License");
+            var licenseTextHandle = Addressables.LoadResourceLocationsAsync("License", typeof(TextAsset));
             await licenseTextHandle.ToUniTask();
             
             var loadTasks = Enumerable.Select(licenseTextHandle.Result.Select(Addressables.LoadAssetAsync<TextAsset>), 
@@ -94,14 +98,13 @@ namespace App.Title
                 var body = "";
                 foreach (var text in textResults)
                 {
-                    body += text.text;
+                    body += text.text + "\n";
                 }
 
                 var option = PopupTextOption.CreateOneButtonOption("ライセンス", body, "閉じる");
                 popupHandle = await CommonPopupView.InstantiateAsync();
                 var popup = popupHandle.Result.GetComponentSafe<CommonPopupView>();
                 await popup.ShowOneButton(option);   
-                
             }
             catch (Exception e)
             {
