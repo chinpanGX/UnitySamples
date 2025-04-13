@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d291bb93f05151442aad094d861c4629
   m_currentHash:
     serializedVersion: 2
-    Hash: 325beacc09ade2cc5382e1b6e22f64b2
+    Hash: 2059e6c3449b8991505e420b2900cf78
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -59,6 +59,8 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 0
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
+  - {fileID: 11400000, guid: 480ef49a60d824641afed52d2f4f2ab8, type: 2}
+  - {fileID: 11400000, guid: e389276855696f144b27533896e3732a, type: 2}
   - {fileID: 11400000, guid: 6eb7eaf7b2a60ee47918c2f364744e58, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
@@ -100,6 +102,7 @@ MonoBehaviour:
     m_LabelNames:
     - default
     - Audio
+    - License
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 1ce2f6857e204b746861d535e1505c70, type: 2}
