@@ -1,4 +1,6 @@
 ﻿using System.Threading;
+using App.AudioDemo;
+using App.Common;
 using AppCore.Runtime;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -12,7 +14,7 @@ namespace App.Title
         private TitleModel Model { get; set; }
         private TitleView View { get; set; }
         private StateMachine<TitlePresenter> StateMachine { get; set; }
-        private CancellationTokenSource cts = new();
+        private readonly CancellationTokenSource cts = new();
 
         public TitlePresenter(IDirector director, TitleModel model, TitleView view)
         {
@@ -33,6 +35,12 @@ namespace App.Title
             View.Pop();
             StateMachine.Dispose();
             Model.Dispose();
+        }
+        
+        private async UniTask OpenLicensePopup()
+        {
+            await View.OpenLicensePopup();
+
         }
 
         private class StateInit : StateMachine<TitlePresenter>.State
@@ -55,9 +63,10 @@ namespace App.Title
                     ).RegisterTo(owner.cts.Token);
                 
                 view.OnClickedAudioDemo.SubscribeAwait(
-                    async (_, token) =>
+                    async (_, _) =>
                     {
-                        await owner.Director.PushAsync("AudioDemo").ToUniTask(cancellationToken: token);
+                        var audioSettingsView = await AudioSettingView.CreateAsync();
+                        await audioSettingsView.OpenAsync();
                     }, AwaitOperation.Drop
                 ).RegisterTo(owner.cts.Token);
 

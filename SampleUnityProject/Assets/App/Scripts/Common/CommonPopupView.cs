@@ -54,17 +54,9 @@ namespace App.Common
         private SimpleAudioService AudioService => ServiceLocator.Get<SimpleAudioService>();
         private ModalScreen ModalScreen => ServiceLocator.Get<ModalScreen>();
         
-        public static async UniTask<AsyncOperationHandle<GameObject>> LoadAsync()
-        {
-            var handle = Addressables.LoadAssetAsync<GameObject>(nameof(CommonPopupView));
-            await handle.ToUniTask();
-            return handle;
-        }
-        
         public static async UniTask<AsyncOperationHandle<GameObject>> InstantiateAsync()
         {
-            var handle = await LoadAsync();
-            var instance = Addressables.InstantiateAsync(handle);
+            var instance = Addressables.InstantiateAsync(nameof(CommonPopupView));
             await instance.ToUniTask();
             instance.Result.gameObject.SetActive(false);
             return instance;

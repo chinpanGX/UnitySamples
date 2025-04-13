@@ -36,6 +36,13 @@ namespace App.AudioDemo
             return view;
         }
 
+        public async UniTask OpenAsync()
+        {
+            Push();
+            Open();
+            await viewPlayableDirector.PlayInAsync(destroyCancellationToken);
+        }
+
         public void Push()
         {
             ModalScreen.Push(this);
@@ -56,7 +63,7 @@ namespace App.AudioDemo
         {
             CloseView().Forget();
         }
-        
+
         private async UniTask CloseView()
         {
             await viewPlayableDirector.PlayOutAsync(destroyCancellationToken);
