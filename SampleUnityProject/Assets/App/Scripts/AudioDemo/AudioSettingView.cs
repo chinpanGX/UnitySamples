@@ -1,3 +1,4 @@
+using App.Common;
 using AppCore.Runtime;
 using AppService.Runtime;
 using AudioService.Simple;
@@ -16,6 +17,7 @@ namespace App.AudioDemo
         [SerializeField] private CustomSlider seVolumeSlider;
         [SerializeField] private CustomButton closeButton;
         [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private ViewPlayableDirector viewPlayableDirector;
 
         public Canvas Canvas => canvas;
         private ModalScreen ModalScreen => ServiceLocator.Get<ModalScreen>();
@@ -27,7 +29,7 @@ namespace App.AudioDemo
         /// <returns></returns>
         public static async UniTask<AudioSettingView> CreateAsync()
         {
-            var go = await Addressables.InstantiateAsync(nameof(AudioSettingView));
+            var go = await Addressables.InstantiateAsync("Title/AudioOptionView.prefab");
             var view = go.GetComponentSafe<AudioSettingView>();
             view.gameObject.SetActive(false);
             view.Initialize();
@@ -47,10 +49,17 @@ namespace App.AudioDemo
         public void Open()
         {
             gameObject.SetActive(true);
+            viewPlayableDirector.PlayInAsync(destroyCancellationToken).Forget();
         }
 
         public void Close()
         {
+            CloseView().Forget();
+        }
+        
+        private async UniTask CloseView()
+        {
+            await viewPlayableDirector.PlayOutAsync(destroyCancellationToken);
             Destroy(gameObject);
         }
 

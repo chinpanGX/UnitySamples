@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: Common
   m_GUID: 4feea6ef36f865644ad5d4f095ccd522
   m_SerializeEntries:
+  - m_GUID: 1d9e1bf706b401948a9e0c4b07f31260
+    m_Address: Assets/App/Addressables/Common/Popup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 44d2a114a57503e4398f34a6197e32de
+    m_Address: CommonPopupView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4cbd4461915ad814b93342dada8aaf5b
     m_Address: Packages/com.chinpangx.appservice/Prefabs
     m_ReadOnly: 0

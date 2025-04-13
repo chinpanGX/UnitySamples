@@ -63,13 +63,6 @@ namespace App.Title
 
                 view.OnClickedHelp.Subscribe((_) => OnClickHelp()).RegisterTo(owner.cts.Token);
                 
-                view.OnClickedTweet
-                    .Subscribe(_ => 
-                        {
-                            OnClickTweet();   
-                        }
-                    ).RegisterTo(owner.cts.Token);
-
                 view.Push();
                 view.Open();
             }
@@ -88,11 +81,6 @@ namespace App.Title
             {
                 // ヘルプボタンが押されたときの処理
                 model.OpenUrl();
-            }
-            
-            private void OnClickTweet()
-            {
-                ServiceLocator.Get<TweetManager>().Tweet(model.TweetTemplateText());
             }
         }
     }

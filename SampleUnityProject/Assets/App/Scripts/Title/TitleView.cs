@@ -14,7 +14,6 @@ namespace App.Title
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private CustomButton startButton;
         [SerializeField] private CustomButton helpButton;
-        [SerializeField] private CustomButton tweetButton;
         [SerializeField] private CustomButton audioDemoButton;
 
         public Canvas Canvas => canvas;
@@ -27,7 +26,6 @@ namespace App.Title
         private readonly Subject<Unit> onClickedAudioDemo = new();
         public Observable<Unit> OnClickedStart => onClickedStart;
         public Observable<Unit> OnClickedHelp => onClickedHelp;
-        public Observable<Unit> OnClickedTweet => onClickedTweet;
         public Observable<Unit> OnClickedAudioDemo => onClickedAudioDemo;
 
         public static async UniTask<TitleView> CreateAsync()
@@ -46,10 +44,6 @@ namespace App.Title
             );
 
             helpButton.SubscribeToClickAndPlaySe(() => { onClickedHelp.OnNext(Unit.Default); },
-                new AudioOptions(AudioService, "SE_Ok"), canvasGroup
-            );
-            
-            tweetButton.SubscribeToClickAndPlaySe(() => { onClickedTweet.OnNext(Unit.Default); },
                 new AudioOptions(AudioService, "SE_Ok"), canvasGroup
             );
             

@@ -30,18 +30,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 44d2a114a57503e4398f34a6197e32de
-    m_Address: CommonPopupView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4742a8f3c158e0846b0565e87fb2d845
     m_Address: TitleView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5df8434bad0a1724fbc9da4e5de491bd
-    m_Address: VolumeElement
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -50,8 +40,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6f271320f4a886042bf386b9f63a22c4
-    m_Address: AudioDemoTopView
+  - m_GUID: 6db6f897d4aaffc46ba77f2886c4a406
+    m_Address: Title/AudioOptionView.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -70,16 +60,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec0f15cce7dbef64284397c5414c14b3
-    m_Address: AudioDemo
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f5b0f847b95129c44a43872279cbe601
-    m_Address: AudioSettingView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 810c949ff69e6134f93213e6ee7c2035, type: 2}
