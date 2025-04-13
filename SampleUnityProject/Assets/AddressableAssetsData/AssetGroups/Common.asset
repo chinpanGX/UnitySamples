@@ -14,7 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Common
   m_GUID: 4feea6ef36f865644ad5d4f095ccd522
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 4cbd4461915ad814b93342dada8aaf5b
+    m_Address: Packages/com.chinpangx.appservice/Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1496592952f9dc4397affc1582633ba
+    m_Address: Packages/com.chinpangx.appservice/Animation/Button
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f54d1bd14bd3ca042bd867b519fee8cc
+    m_Address: Assets/TextMesh Pro
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 810c949ff69e6134f93213e6ee7c2035, type: 2}
   m_SchemaSet:
