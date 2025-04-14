@@ -1,6 +1,7 @@
 using System;
 using App.AudioDemo;
 using App.Common;
+using App.IceGame;
 using App.SampleInGame;
 using App.SampleInGame.Domain;
 using App.SampleInGame.View;
@@ -56,10 +57,7 @@ namespace App.Director
             fadeView.Push();
             fadeView.Open();
             fadeView.Blackout();
-
-            // MessagePipeのビルド
-            BuildMessagePipe();
-
+            
             // オーディオファイルの読み込みを行う
             var audioService = ServiceLocator.Get<SimpleAudioService>();
             await audioService.LoadAllAsyncIfNeed();
@@ -73,18 +71,6 @@ namespace App.Director
             await fadeView.FadeOutAsync();
             fadeView.Pop();
         }
-        
-        /// <summary>
-        /// MessagePipeのビルドを行う
-        /// </summary>
-        private void BuildMessagePipe()
-        {
-            var builder = new BuiltinContainerBuilder();
-            builder.AddMessagePipe();
-            builder.AddMessageBroker<BallCollisionMessage>();
-            var provider = builder.BuildServiceProvider();
-            GlobalMessagePipe.SetProvider(provider);
-        }
 
         /// <summary>
         /// Presenterの切り替えを行う
@@ -97,27 +83,18 @@ namespace App.Director
             {
                 "Title" => new TitlePresenter(this, new TitleModel(), await TitleView.CreateAsync()),
                 "AudioDemo" => new AudioDemoPresenter(this, await AudioDemoTopView.CreateAsync()),
-                "SampleGame" => await ResolveSampleInGame(),
+                "InGame" => await ResolveIceGame(),
                 _ => throw new ArgumentException($"Unknown Presenter Key : {key}"),
             };
             tickablePresenter.SetRequest(request);
             
         }
         
-        /// <summary>
-        /// SampleInGamePresenterの依存関係の解決をする。
-        /// オブジェクト数が多くなりそうなので、関数化
-        /// </summary>
-        /// <returns></returns>
-        private async UniTask<IPresenter> ResolveSampleInGame()
+        private async UniTask<IPresenter> ResolveIceGame()
         {
-            var view = await SampleInGameView.CreateAsync(
-                GlobalMessagePipe.GetPublisher<BallCollisionMessage>(),
-                uiCamera
-            );
-            var model = new SampleInGameModel(GlobalMessagePipe.GetSubscriber<BallCollisionMessage>());
-            var pointerHandler = ServiceLocator.Get<PointerHandler>();
-            return new SampleInGamePresenter(this, model, view, pointerHandler);
+            var view = await IceGameView.CreateAsync();
+            var model = new IceGameModel();
+            return new IceGamePresenter(this, model, view);
         }
     }
 }

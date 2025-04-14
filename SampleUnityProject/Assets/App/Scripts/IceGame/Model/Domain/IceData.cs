@@ -16,7 +16,7 @@ namespace App.IceGame.Domain
             life = new ReactiveProperty<int>(100); // 初期ライフを100に設定
         }
         
-        public bool Damage()
+        public bool ReduceLife()
         {
             life.Value -= 1; // 1秒ごとにライフを減少
             if (life.Value <= 0)

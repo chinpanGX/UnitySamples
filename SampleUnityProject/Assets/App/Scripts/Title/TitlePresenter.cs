@@ -51,7 +51,7 @@ namespace App.Title
                     .SubscribeAwait(
                         async (_, token) =>
                         {
-                            await owner.Director.PushAsync("SampleGame").ToUniTask(cancellationToken: token);
+                            await owner.Director.PushAsync("InGame").ToUniTask(cancellationToken: token);
                         }, AwaitOperation.Drop
                     ).RegisterTo(owner.cts.Token);
                 

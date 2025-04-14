@@ -95,6 +95,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b95ba99aab8beac4fb55c0e316336390
+    m_Address: IceGameView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bdb06fdd1abd8e140b3d63fef1a4f74e
+    m_Address: Assets/App/Addressables/IceGame/View/Score.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ceed109b80efb514db1f0c480728051b
     m_Address: icecream_9
     m_ReadOnly: 0

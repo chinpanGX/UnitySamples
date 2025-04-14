@@ -44,8 +44,6 @@ namespace App.IceGame
 
         private void Setup()
         {
-            Model.Initialize();
-
             Model.OnChangeStageLevel.Subscribe(_ =>
             {
                 Debug.Log("ステージレベルアップ");
@@ -55,10 +53,10 @@ namespace App.IceGame
             {
                 Debug.Log("ゲームオーバー");
             }).RegisterTo(cts.Token);
-
-            Model.Score.Subscribe(_ =>
+            
+            Model.ScoreAsObservable.SubscribeAwait(async (value, _) =>
             {
-                Debug.Log("Score");
+                await View.ScoreElementView.UpdateScore(value);
             }).RegisterTo(cts.Token);
 
             Model.ViewIceDataList.ObserveAdd().Subscribe(data =>
@@ -70,6 +68,7 @@ namespace App.IceGame
             Model.ViewIceDataList.ObserveRemove().Subscribe(data =>
                 {
                     Debug.Log($"氷が削除されました: {data}");
+                    Model.AddScore(data.Value);
                 }
             ).RegisterTo(cts.Token);
             
@@ -81,12 +80,12 @@ namespace App.IceGame
         
         private async UniTask OnStartGame()
         {
-            startViewHandle = await StartView.LoadAsync();
-            var startView = startViewHandle.Result.GetComponent<StartView>();
-            startView.Push();
-            startView.Open();
-            await startView.PlayAsync();
-            startView.Pop();
+            // startViewHandle = await StartView.LoadAsync();
+            // var startView = startViewHandle.Result.GetComponent<StartView>();
+            // startView.Push();
+            // startView.Open();
+            // await startView.PlayAsync();
+            // startView.Pop();
             Model.StartGame();
         }
     }
