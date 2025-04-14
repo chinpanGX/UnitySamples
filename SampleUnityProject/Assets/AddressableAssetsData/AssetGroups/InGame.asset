@@ -20,78 +20,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0e1f2c16dbdfed44da815355f3b09dbe
-    m_Address: icecream_4
+  - m_GUID: 20f32a9428606bb428608f742bf11e4f
+    m_Address: IceGamePackSprite
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1546e5ec1895b2449afbf379622e8f9c
-    m_Address: man_3_2
+  - m_GUID: 681029e62e736a4449e463befb6b7adb
+    m_Address: Assets/App/Addressables/IceGame/Texture/ice
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 159388e87556773488441ea8282d927d
-    m_Address: icecream_3
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1a8b764387126f74d8acbd8adeadce2f
-    m_Address: man_2_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3f5768ac7e8a71b47bfd703eb9f5d6d2
-    m_Address: man_2_2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 42f95bdc274a0e3429fc723416405fb5
-    m_Address: icecream_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 445c99188f2912449a404e2acbd560f6
-    m_Address: icecream_2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 66b3cb55677b6a1419bebe0ac2c82c57
-    m_Address: man_3_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 66b9494aaf53a81448c0ea0bf8fcc9e9
-    m_Address: man_1_2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6a9f73595270e89479e2f75a8b2923f0
-    m_Address: icecream_6
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7e78700de0f9014439f7f39431e95670
-    m_Address: man_4_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7fc154afd928aac4da6cf1137a99b2fd
-    m_Address: icecream_5
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 84b76c5db5c1d5547907973e69dec542
-    m_Address: man_4_2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 93797d59bf1ec8d4b96fac8448113355
-    m_Address: man_1_1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: adaf22e93d294b04c8f50986fe6a5ee4
-    m_Address: icecream_7
+  - m_GUID: 7245232cfdb1f4547adacf21013084c9
+    m_Address: Assets/App/Addressables/IceGame/Texture/man
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -102,11 +42,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bdb06fdd1abd8e140b3d63fef1a4f74e
     m_Address: Assets/App/Addressables/IceGame/View/Score.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ceed109b80efb514db1f0c480728051b
-    m_Address: icecream_9
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

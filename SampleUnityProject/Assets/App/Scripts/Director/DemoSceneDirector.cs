@@ -1,10 +1,9 @@
 using System;
 using App.AudioDemo;
 using App.Common;
+using App.Extensions;
 using App.IceGame;
-using App.SampleInGame;
-using App.SampleInGame.Domain;
-using App.SampleInGame.View;
+using App.IceGame.Domain;
 using App.Title;
 using AppCore.Runtime;
 using AudioService.Simple;
@@ -57,7 +56,10 @@ namespace App.Director
             fadeView.Push();
             fadeView.Open();
             fadeView.Blackout();
-            
+
+            // MessagePipeのビルド
+            BuildMessagePipe();
+
             // オーディオファイルの読み込みを行う
             var audioService = ServiceLocator.Get<SimpleAudioService>();
             await audioService.LoadAllAsyncIfNeed();
@@ -70,6 +72,18 @@ namespace App.Director
             // フェードアウトして、画面表示
             await fadeView.FadeOutAsync();
             fadeView.Pop();
+        }
+        
+        /// <summary>
+        /// MessagePipeのビルドを行う
+        /// </summary>
+        private void BuildMessagePipe()
+        {
+            var builder = new BuiltinContainerBuilder();
+            builder.AddMessagePipe();
+            builder.AddMessageBroker<IceDisposerMessage>();
+            var provider = builder.BuildServiceProvider();
+            GlobalMessagePipe.SetProvider(provider);
         }
 
         /// <summary>
@@ -93,8 +107,10 @@ namespace App.Director
         private async UniTask<IPresenter> ResolveIceGame()
         {
             var view = await IceGameView.CreateAsync();
-            var model = new IceGameModel();
-            return new IceGamePresenter(this, model, view);
+            var (iceDisposerPublisher, iceDisposerSubscriber) =
+                MessagePipeEx.GetMessagePipePubSub<IceDisposerMessage>();
+            var model = new IceGameModel(iceDisposerPublisher);
+            return new IceGamePresenter(this, model, view, iceDisposerSubscriber);
         }
     }
 }

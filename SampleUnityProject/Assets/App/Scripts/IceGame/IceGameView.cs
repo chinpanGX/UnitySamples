@@ -6,7 +6,6 @@ using UnityEngine.AddressableAssets;
 
 namespace App.IceGame
 {
-
     public class IceGameView : MonoBehaviour, IView
     {
         [SerializeField] private Canvas canvas;

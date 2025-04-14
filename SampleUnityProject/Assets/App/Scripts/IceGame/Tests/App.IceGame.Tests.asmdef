@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "App.IceGame.Model",
-        "R3.Unity"
+        "R3.Unity",
+        "MessagePipe"
     ],
     "includePlatforms": [
         "Editor"

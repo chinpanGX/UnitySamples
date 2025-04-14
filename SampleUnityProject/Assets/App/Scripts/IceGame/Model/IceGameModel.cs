@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using App.IceGame.Domain;
 using AppCore.Runtime;
+using MessagePipe;
 using ObservableCollections;
 using R3;
 using UnityEngine;
@@ -26,19 +28,22 @@ namespace App.IceGame
         private bool gameStarted = false;
         private int intervalMilliseconds;
 
+        private readonly IPublisher<IceDisposerMessage> iceDisposerPublisher;
         private readonly Subject<Unit> onChangeStageLevel = new();
         private readonly Subject<Unit> onGameOver = new();
+        private readonly CancellationTokenSource cancellationTokenSource = new();
         public Observable<int> ScoreAsObservable => score.Skip(1);
         public Observable<Unit> OnChangeStageLevel => onChangeStageLevel;
         public Observable<Unit> OnGameOver => onGameOver;
-
-        public IceGameModel()
+        
+        public IceGameModel(IPublisher<IceDisposerMessage> iceDisposerPublisher)
         {
             stageLevel = 1;
             disposedIceCount = 0;
             isGameOver = false;
             gameStarted = false;
             intervalMilliseconds = CalculateInterval(stageLevel);
+            this.iceDisposerPublisher = iceDisposerPublisher;
         }
 
         public void Initialize()
@@ -60,7 +65,8 @@ namespace App.IceGame
 
         public void Dispose()
         {
-            stopwatch.Stop();
+            cancellationTokenSource.Cancel();
+            cancellationTokenSource.Dispose();
         }
 
         public void StartGame()
@@ -91,6 +97,17 @@ namespace App.IceGame
         {
             score.Value += data.Life.CurrentValue;
         }
+        
+        public int AddIceDisposerCount(int count)
+        {
+            disposedIceCount += count;
+            if (disposedIceCount < 5) 
+                return disposedIceCount;
+            
+            isGameOver = true;
+            onGameOver.OnNext(Unit.Default);
+            return disposedIceCount;
+        }
 
         private void LevelUp()
         {
@@ -108,7 +125,7 @@ namespace App.IceGame
         internal void CreateIce()
         {
             var randomId = Random.Range(1, 10);
-            ViewIceDataList.Add(new IceData(randomId));
+            ViewIceDataList.Add(new IceData(randomId, iceDisposerPublisher));
         }
     }
 }

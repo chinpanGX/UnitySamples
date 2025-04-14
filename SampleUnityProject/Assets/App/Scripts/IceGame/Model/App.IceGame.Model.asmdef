@@ -2,7 +2,8 @@
     "name": "App.IceGame.Model",
     "rootNamespace": "App.IceGame.Model",
     "references": [
-        "GUID:54a2c7e87b2e33c4682fe98c62bb2fe5"
+        "GUID:54a2c7e87b2e33c4682fe98c62bb2fe5",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

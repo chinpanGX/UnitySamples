@@ -1,6 +1,8 @@
 using System.Threading;
+using App.IceGame.Domain;
 using AppCore.Runtime;
 using Cysharp.Threading.Tasks;
+using MessagePipe;
 using ObservableCollections;
 using R3;
 using UnityEngine;
@@ -18,11 +20,17 @@ namespace App.IceGame
         
         private AsyncOperationHandle<GameObject> startViewHandle;
 
-        public IceGamePresenter(IDirector director, IceGameModel model, IceGameView view)
+        public IceGamePresenter(IDirector director, IceGameModel model, IceGameView view, ISubscriber<IceDisposerMessage> iceDisposerSubscriber)
         {
             Director = director;
             Model = model;
             View = view;
+            
+            iceDisposerSubscriber.Subscribe(message =>
+            {
+                var disposedCount = Model.AddIceDisposerCount(message.DisposedIceCount);
+                
+            }).RegisterTo(cts.Token);
             
             Setup();
         }

@@ -12,7 +12,7 @@ namespace App.IceGame.Tests
         public void TestIceDataCreation() 
         {
             var cancellationTokenSource = new CancellationTokenSource();
-            var model = new IceGameModel();
+            var model = new IceGameModel(null);
             model.ViewIceDataList.ObserveAdd().Subscribe(data =>
             {
                 Debug.Log($"IceData added: index: {data.Index}, ID: {data.Value.Id}, Life: {data.Value.Life.CurrentValue}, AssetPath: {data.Value.GetAssetPath()}");
