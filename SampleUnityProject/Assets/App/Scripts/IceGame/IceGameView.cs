@@ -11,9 +11,11 @@ namespace App.IceGame
         [SerializeField] private Canvas canvas;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private ScoreElementView scoreElementView;
+        [SerializeField] private IceLifeElementView iceLifeElementView;
         
         public Canvas Canvas => canvas;
         public ScoreElementView ScoreElementView => scoreElementView;
+        
         private ModalScreen ModalScreen => ServiceLocator.Get<ModalScreen>();
         
         public static async UniTask<IceGameView> CreateAsync()
@@ -24,6 +26,11 @@ namespace App.IceGame
             var view = handle.Result.GetComponentSafe<IceGameView>();
             view.Initialize();
             return view;
+        }
+        
+        public void SetReduceLife(int index)
+        {
+            iceLifeElementView.ReduceLife(index);
         }
         
         private void Initialize()

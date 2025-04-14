@@ -29,7 +29,7 @@ namespace App.IceGame
             iceDisposerSubscriber.Subscribe(message =>
             {
                 var disposedCount = Model.AddIceDisposerCount(message.DisposedIceCount);
-                
+                View.SetReduceLife(disposedCount - 1);
             }).RegisterTo(cts.Token);
             
             Setup();
