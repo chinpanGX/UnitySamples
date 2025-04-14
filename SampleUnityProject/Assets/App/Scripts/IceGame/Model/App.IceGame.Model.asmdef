@@ -1,0 +1,16 @@
+{
+    "name": "App.IceGame.Model",
+    "rootNamespace": "App.IceGame.Model",
+    "references": [
+        "GUID:54a2c7e87b2e33c4682fe98c62bb2fe5"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

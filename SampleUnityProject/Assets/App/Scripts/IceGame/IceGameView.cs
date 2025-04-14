@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace App.IceGame
 {
+
     public class IceGameView : MonoBehaviour, IView
     {
         [SerializeField] private Canvas canvas;
@@ -23,12 +24,13 @@ namespace App.IceGame
         
         public void Open()
         {
-            throw new System.NotImplementedException();
+            gameObject.SetActive(true);
         }
         
         public void Close()
         {
-            throw new System.NotImplementedException();
+            Destroy(gameObject);
         }
+        
     }
 }

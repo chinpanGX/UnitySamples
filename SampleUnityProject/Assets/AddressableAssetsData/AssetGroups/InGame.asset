@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: InGame
   m_GUID: 85c8ec9c527dd9840869463c7afb6145
   m_SerializeEntries:
+  - m_GUID: 086d9c239c79cc243a6d5123a5b3b337
+    m_Address: StartView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0e1f2c16dbdfed44da815355f3b09dbe
     m_Address: icecream_4
     m_ReadOnly: 0
@@ -92,6 +97,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ceed109b80efb514db1f0c480728051b
     m_Address: icecream_9
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f55ba34be6f4a9949a3bd105129f2cdf
+    m_Address: Assets/App/Addressables/IceGame/Animation
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
