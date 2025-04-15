@@ -89,7 +89,6 @@ namespace App.IceGame
                 UnityEngine.Debug.LogError($"IceData with UniqueId {uniqueId} not found.");
                 return;
             }
-            AddScore(iceData);
             ViewIceDataList.Remove(iceData);
         }
         

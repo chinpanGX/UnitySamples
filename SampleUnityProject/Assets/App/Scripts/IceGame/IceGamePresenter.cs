@@ -75,8 +75,8 @@ namespace App.IceGame
             
             Model.ViewIceDataList.ObserveRemove().Subscribe(data =>
                 {
-                    Debug.Log($"氷が削除されました: {data}");
                     Model.AddScore(data.Value);
+                    // お客さんがまた注文をする   
                 }
             ).RegisterTo(cts.Token);
             
