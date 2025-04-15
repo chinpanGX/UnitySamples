@@ -69,7 +69,7 @@ namespace App.IceGame
 
             Model.ViewIceDataList.ObserveAdd().Subscribe(data =>
                 {
-                    Debug.Log($"氷が追加されました: {data}");
+                    _ = View.CreateIceElement(data.Value, Model.GiveIce);
                 }
             ).RegisterTo(cts.Token);
             

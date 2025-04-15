@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using App.IceGame.Domain;
 using AppCore.Runtime;
@@ -7,6 +8,7 @@ using MessagePipe;
 using ObservableCollections;
 using R3;
 using UnityEngine;
+using ZLinq;
 
 #if UNITY_EDITOR
 using System.Runtime.CompilerServices;
@@ -58,7 +60,6 @@ namespace App.IceGame
             if (stopwatch.ElapsedMilliseconds >= intervalMilliseconds)
             {
                 CreateIce();
-                RemoveIce(0);
                 stopwatch.Restart();
             }
         }
@@ -80,18 +81,18 @@ namespace App.IceGame
             stopwatch.Start();
         }
 
-        public void RemoveIce(int index)
+        public void GiveIce(string uniqueId)
         {
-            ViewIceDataList.RemoveAt(index);
-
-            // disposedIceCount++;
-            //
-            // if (disposedIceCount >= 5)
-            // {
-            //     isGameOver = true;
-            //     onGameOver.OnNext(Unit.Default);
-            // }
+            var iceData = ViewIceDataList.AsValueEnumerable().FirstOrDefault(x => x.UniqueId == uniqueId);
+            if (iceData == null)
+            {
+                UnityEngine.Debug.LogError($"IceData with UniqueId {uniqueId} not found.");
+                return;
+            }
+            AddScore(iceData);
+            ViewIceDataList.Remove(iceData);
         }
+        
 
         public void AddScore(IceData data)
         {

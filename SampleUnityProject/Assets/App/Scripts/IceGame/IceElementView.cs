@@ -22,7 +22,7 @@ namespace App.IceGame
         [SerializeField] private List<CustomerElementView> customerElementViews;
 
         private IceData iceData;
-        private Action<string> onDragEnd;
+        private Action<string> onGiveIce;
 
         public static async UniTask<AsyncOperationHandle<GameObject>> LoadAsync()
         {
@@ -32,7 +32,7 @@ namespace App.IceGame
         }
 
         public IceElementView Initialize(AsyncOperationHandle<GameObject> handle, RectTransform parent, IceData data,
-            Action<string> onDragEnd)
+            Action<string> onGiveIce)
         {
             var instance = Instantiate(handle.Result, parent);
             instance.SetActive(false);
@@ -55,7 +55,7 @@ namespace App.IceGame
                 }
             ).RegisterTo(destroyCancellationToken);
 
-            this.onDragEnd = onDragEnd;
+            this.onGiveIce = onGiveIce;
             return instance.GetComponent<IceElementView>();
         }
 
@@ -100,7 +100,7 @@ namespace App.IceGame
                          .AsValueEnumerable()
                          .Where(customerElementView => Contains(eventData, customerElementView.Area)))
             {
-                onDragEnd?.Invoke(customerElementView.OrderUniqueId);
+                onGiveIce?.Invoke(customerElementView.OrderUniqueId);
                 Destroy(gameObject);
                 return;
             }

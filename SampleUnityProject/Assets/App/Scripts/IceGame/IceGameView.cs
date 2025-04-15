@@ -43,13 +43,21 @@ namespace App.IceGame
             iceLifeElementView.ReduceLife(index);
         }
 
-        public async UniTask CreateIceElement(IceData data, Action<string> onDragEnd)
+        public async UniTask CreateIceElement(IceData data, Action<string> onGiveIce)
         {
             iceElementHandle = await IceElementView.LoadAsync();
             var iceElement = Instantiate(iceElementHandle.Result, spawnPoint);
             iceElement.SetActive(false);
             var comp = iceElement.GetComponent<IceElementView>();
-            iceElementViews.Add(comp.Initialize(iceElementHandle, spawnPoint, data, onDragEnd));
+            iceElementViews.Add(comp.Initialize(iceElementHandle, spawnPoint, data, onGiveIce));
+        }
+        
+        public void Tick()
+        {
+            foreach(var customer in customerElementViews)
+            {
+                //customer.UpdateOrder();
+            }
         }
 
         private void Initialize()
