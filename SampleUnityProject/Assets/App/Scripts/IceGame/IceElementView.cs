@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using App.IceGame.Domain;
 using Cysharp.Threading.Tasks;
@@ -8,34 +9,37 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using ZLinq;
 
 namespace App.IceGame
 {
     public class IceElementView : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private RectTransform parentRectTransform;
+        [SerializeField] private RectTransform rectTransform;
         [SerializeField] private Image image;
-        public int Index { get; private set; }
-        private IceData iceData;
-        private AsyncOperationHandle<GameObject> handle;
+        [SerializeField] private List<CustomerElementView> customerElementViews;
 
-        public static async UniTask<IceElementView> CreateAsync(Transform parent, int index, IceData data)
+        private IceData iceData;
+        private Action<string> onDragEnd;
+
+        public static async UniTask<AsyncOperationHandle<GameObject>> LoadAsync()
         {
-            var handle = Addressables.InstantiateAsync("IceElementView", parent);
+            var handle = Addressables.LoadAssetAsync<GameObject>("IceElementView");
             await handle.ToUniTask();
-            handle.Result.SetActive(false);
-            var elementView = handle.Result.GetComponent<IceElementView>();
-            elementView.Initialize(index, data, handle);
-            return elementView;
+            return handle;
         }
 
-        private void Initialize(int index, IceData data, AsyncOperationHandle<GameObject> asyncOperationHandle)
+        public IceElementView Initialize(AsyncOperationHandle<GameObject> handle, RectTransform parent, IceData data,
+            Action<string> onDragEnd)
         {
-            handle = asyncOperationHandle;
+            var instance = Instantiate(handle.Result, parent);
+            instance.SetActive(false);
             gameObject.SetActive(true);
             transform.localPosition = Vector3.zero;
             transform.localScale = Vector3.one;
 
-            Index = index;
             iceData = data;
 
             iceData.Life.SubscribeAwait(async (life, ct) =>
@@ -50,8 +54,11 @@ namespace App.IceGame
                     }
                 }
             ).RegisterTo(destroyCancellationToken);
+
+            this.onDragEnd = onDragEnd;
+            return instance.GetComponent<IceElementView>();
         }
-        
+
         private async UniTask BlinkAsync(CancellationToken token)
         {
             var blinkInterval = 0.5f;
@@ -79,25 +86,70 @@ namespace App.IceGame
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-
+            SetPosition(eventData.position);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-
+            SetPosition(eventData.position);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-
+            foreach (var customerElementView in customerElementViews
+                         .AsValueEnumerable()
+                         .Where(customerElementView => Contains(eventData, customerElementView.Area)))
+            {
+                onDragEnd?.Invoke(customerElementView.OrderUniqueId);
+                Destroy(gameObject);
+                return;
+            }
         }
 
         #endregion ドラッグ&ドロップ
 
-        private void OnDestroy()
+        private void SetPosition(Vector2 screenPoint)
         {
-            if (handle.IsValid())
-                handle.Release();
+            if (parentRectTransform == null)
+            {
+                Debug.LogError("parentRectPosition is null");
+                return;
+            }
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTransform, screenPoint,
+                canvas.worldCamera, out Vector2 position
+            );
+            rectTransform.anchoredPosition = position;
+        }
+
+        private static bool Contains(PointerEventData target, RectTransform area)
+        {
+            var bounds = CalcBounds(area);
+            RectTransformUtility.ScreenPointToWorldPointInRectangle(area, target.position, target.pressEventCamera,
+                out var worldPos
+            );
+            worldPos.z = 0f;
+            return bounds.Contains(worldPos);
+        }
+
+        private static Bounds CalcBounds(RectTransform target)
+        {
+            var corners = new Vector3[4];
+            var min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            var max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+            target.GetWorldCorners(corners);
+            for (var i = 0; i < 4; i++)
+            {
+                min = Vector3.Min(corners[i], min);
+                max = Vector3.Max(corners[i], max);
+            }
+
+            max.z = 0f;
+            min.z = 0f;
+
+            var bounds = new Bounds(min, Vector3.zero);
+            bounds.Encapsulate(max);
+            return bounds;
         }
     }
 }

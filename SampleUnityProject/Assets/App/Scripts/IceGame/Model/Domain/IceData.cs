@@ -5,6 +5,7 @@ namespace App.IceGame.Domain
 {
     public class IceData
     {
+        public readonly string UniqueId;
         public readonly int Id;
         private readonly ReactiveProperty<int> life; // アイスの残りライフがスコアになる
         private readonly IPublisher<IceDisposerMessage> iceDisposerPublisher;
@@ -14,6 +15,7 @@ namespace App.IceGame.Domain
         {
             if (id < 0)
                 throw new System.ArgumentOutOfRangeException(nameof(id), "Id must be non-negative.");
+            UniqueId = System.Guid.NewGuid().ToString();
             Id = id;
             life = new ReactiveProperty<int>(100); // 初期ライフを100に設定
             this.iceDisposerPublisher = iceDisposerPublisher;
