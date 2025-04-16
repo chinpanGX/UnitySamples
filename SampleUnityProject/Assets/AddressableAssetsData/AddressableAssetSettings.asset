@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d291bb93f05151442aad094d861c4629
   m_currentHash:
     serializedVersion: 2
-    Hash: 3ce947804de453c35abf2a94f405c30d
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -82,6 +82,20 @@ MonoBehaviour:
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
       - m_Id: fdb5644f8ff95b840971ad6253edce83
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+    - m_InheritedParent: 
+      m_Id: 1c0c5e39a0e2e374ab1a5355013b0476
+      m_ProfileName: Develop
+      m_Values:
+      - m_Id: 5b017c8ec9aed0c4089d4c81c9409ec2
+        m_Value: 'ServerData/Develop/[BuildTarget]'
+      - m_Id: 7d3a174db4a6c9642a24c5cbcecc182e
+        m_Value: C:\Unity\UnityPackages\UnitySamples\Dlc\Develop
+      - m_Id: 9683d35b63a124946a8209aa8c28d03b
+        m_Value: https://chinpangx.github.io/UnitySamples/Dlc/Develop
+      - m_Id: cad597b5f39ea464e83515a85a5f0a41
+        m_Value: C:\Unity\UnityPackages\UnitySamples\Dlc\Develop
+      - m_Id: fdb5644f8ff95b840971ad6253edce83
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     m_ProfileEntryNames:
     - m_Id: 5b017c8ec9aed0c4089d4c81c9409ec2
       m_Name: Remote.BuildPath
@@ -116,4 +130,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0f5ddc0ad380e7040a5b04d528ac2477, type: 2}
   - {fileID: 11400000, guid: f21bf9a8e3e84c348b5f7cb67cfb6b54, type: 2}
   - {fileID: 11400000, guid: 3e7855ee18268b340bde4fbed130f1b1, type: 2}
-  m_ActiveProfileId: 82886f8db02b6a447bded22002ba2c5d
+  m_ActiveProfileId: 1c0c5e39a0e2e374ab1a5355013b0476
