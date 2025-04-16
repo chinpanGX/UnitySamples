@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: d291bb93f05151442aad094d861c4629
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 274d7765057d3593c343046d35813747
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
       - m_Id: 9683d35b63a124946a8209aa8c28d03b
         m_Value: https://chinpangx.github.io/UnitySamples/Dlc/Develop
       - m_Id: cad597b5f39ea464e83515a85a5f0a41
-        m_Value: C:\Unity\UnityPackages\UnitySamples\Dlc\Develop
+        m_Value: https://chinpangx.github.io/UnitySamples/Dlc/Develop
       - m_Id: fdb5644f8ff95b840971ad6253edce83
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
     m_ProfileEntryNames:

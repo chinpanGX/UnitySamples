@@ -25,11 +25,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3524606b8a331cc4ba5de77f9826349a
-    m_Address: SampleInGameView
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4742a8f3c158e0846b0565e87fb2d845
     m_Address: TitleView
     m_ReadOnly: 0
@@ -40,18 +35,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6db6f897d4aaffc46ba77f2886c4a406
-    m_Address: Title/AudioOptionView.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 726907c3a72b6124c847cd077ab8e33a
     m_Address: Fade
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a9ce0ce42facb4d4280597c4ef238bd7
-    m_Address: Ball
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -60,6 +45,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f24322a99b50d354a901c88e8d1dd638
+    m_Address: AudioOptionView
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 810c949ff69e6134f93213e6ee7c2035, type: 2}
